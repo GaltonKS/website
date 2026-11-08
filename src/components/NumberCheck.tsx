@@ -6,6 +6,7 @@
 
 import { AnimatePresence, motion, useInView, useReducedMotion } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
+import Spotlight from "./Spotlight";
 
 type Fig = { fig: string; src: string; fix?: string };
 type Seg = string | Fig;
@@ -137,7 +138,8 @@ export default function NumberCheck() {
           </ul>
         </div>
 
-        <div ref={ref} className="rounded-2xl border border-navy-line bg-navy-raised p-4 sm:p-6">
+        <Spotlight tone="navy" className="rounded-2xl border border-navy-line bg-navy-raised p-4 sm:p-6">
+          <div ref={ref}>
           <div className="flex items-center justify-between gap-3">
             <p className="text-sm text-on-navy-muted">Galton AI, Whitfield household</p>
             <button
@@ -244,7 +246,8 @@ export default function NumberCheck() {
               ))}
             </dl>
           </div>
-        </div>
+          </div>
+        </Spotlight>
       </div>
     </section>
   );

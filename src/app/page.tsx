@@ -1,3 +1,4 @@
+import ClientView from "@/components/ClientView";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
 import Hero from "@/components/Hero";
@@ -17,6 +18,7 @@ export default function Home() {
         <Measures />
         <Steps />
         <NumberCheck />
+        <ClientView />
         <Household />
         <Security />
         <Contact />

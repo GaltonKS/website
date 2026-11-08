@@ -1,6 +1,7 @@
 "use client";
 
 import { motion, useReducedMotion } from "framer-motion";
+import Spotlight from "./Spotlight";
 
 // Illustrative household on the engine's 1 to 10 scale. Each reading is an estimate
 // with a band; the ceiling is the lower of willingness and ability.
@@ -40,7 +41,7 @@ export default function Household() {
           </p>
         </div>
 
-        <div className="rounded-2xl border border-rule bg-card p-5 sm:p-7">
+        <Spotlight className="rounded-2xl border border-rule bg-card p-5 sm:p-7">
           <p className="text-sm text-muted">Example household, 1 to 10 scale</p>
 
           <div className="relative mt-12 space-y-7">
@@ -111,7 +112,7 @@ export default function Household() {
               Ceiling set by ability. Revisit goals, timeline or savings rate before raising risk.
             </p>
           </motion.div>
-        </div>
+        </Spotlight>
       </div>
     </section>
   );
