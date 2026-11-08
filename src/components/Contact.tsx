@@ -1,7 +1,9 @@
 "use client";
 
 import { AnimatePresence, motion } from "framer-motion";
+import Image from "next/image";
 import { useState, type FormEvent } from "react";
+import kitchenPhoto from "@/assets/photos/kitchen-review.jpg";
 import { AUM, ROLES, submitContact, validateContact, type ContactRequest } from "@/lib/contact";
 
 const EMPTY: ContactRequest = { name: "", email: "", firm: "", role: "", aum: "", message: "", website: "" };
@@ -67,6 +69,29 @@ export default function Contact() {
               <Tick /> Your questions about data, security and pricing
             </li>
           </ul>
+
+          <motion.figure
+            className="relative mt-10 max-w-[30rem]"
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.4 }}
+            transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
+          >
+            <div className="relative aspect-[3/2] overflow-hidden rounded-2xl ring-1 ring-white/10">
+              <Image
+                src={kitchenPhoto}
+                alt="An advisor and a client review printed charts together at a kitchen island."
+                fill
+                placeholder="blur"
+                sizes="(min-width: 1024px) 480px, 100vw"
+                className="object-cover object-[60%_35%]"
+              />
+              <div aria-hidden="true" className="absolute inset-0 bg-gradient-to-t from-navy/50 via-transparent" />
+            </div>
+            <figcaption className="absolute -bottom-4 left-4 rounded-full border border-white/12 bg-navy/80 px-4 py-2 text-sm text-on-navy backdrop-blur">
+              30 minutes, on a portfolio you choose
+            </figcaption>
+          </motion.figure>
         </div>
 
         <div className="on-paper rounded-2xl bg-card p-6 text-ink shadow-[0_30px_80px_-30px_rgba(0,0,0,0.6)] sm:p-8">
