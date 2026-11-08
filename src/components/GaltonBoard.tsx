@@ -4,6 +4,8 @@
 // binomial distribution. The dashed curve is the expected shape for the balls landed
 // so far, so the piles visibly settle onto it. Drawn on canvas, paused off-screen,
 // and replaced by a still, finished board when the viewer prefers reduced motion.
+// Clicking or tapping the board drops a handful of extra balls, so the visitor can
+// run the experiment themselves.
 
 import { useEffect, useRef } from "react";
 
@@ -69,7 +71,7 @@ export default function GaltonBoard({ className = "" }: { className?: string }) 
 
     // Position of a ball in flight: an arc from peg to peg, then a drop into its bin.
     function ballPos(b: Ball, now: number): [number, number] | null {
-      const t = (now - b.t0) / ROW_MS;
+      const t = Math.max(0, (now - b.t0) / ROW_MS);
       const r = Math.floor(t);
       const f = t - r;
       const lift = s * 0.42;
@@ -184,6 +186,10 @@ export default function GaltonBoard({ className = "" }: { className?: string }) 
       ctx.shadowBlur = br * 3;
       const next: Ball[] = [];
       for (const b of balls) {
+        if (now < b.t0) {
+          next.push(b);
+          continue;
+        }
         const p = ballPos(b, now);
         if (!p) {
           counts[b.bin] = Math.min(counts[b.bin] + 1, maxStack);
@@ -214,10 +220,21 @@ export default function GaltonBoard({ className = "" }: { className?: string }) 
     const io = new IntersectionObserver(([e]) => (visible = e.isIntersecting));
     io.observe(canvas);
 
+    // a visitor's handful: a quick burst of balls from the top peg
+    function onDrop() {
+      if (phase === "fade") return;
+      const now = performance.now();
+      for (let i = 0; i < 14; i++) spawn(now + i * 28);
+    }
+
     if (reduce) drawReduced();
-    else raf = requestAnimationFrame(frame);
+    else {
+      raf = requestAnimationFrame(frame);
+      canvas.addEventListener("pointerdown", onDrop);
+    }
 
     return () => {
+      canvas.removeEventListener("pointerdown", onDrop);
       cancelAnimationFrame(raf);
       ro.disconnect();
       io.disconnect();
@@ -227,7 +244,7 @@ export default function GaltonBoard({ className = "" }: { className?: string }) 
   return (
     <canvas
       ref={canvasRef}
-      className={className}
+      className={`${className} cursor-pointer touch-manipulation motion-reduce:cursor-default`}
       role="img"
       aria-label="A Galton board: gold balls bounce through rows of pegs and pile up into a bell-shaped distribution of outcomes."
     />

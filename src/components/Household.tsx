@@ -1,6 +1,9 @@
 "use client";
 
 import { motion, useReducedMotion } from "framer-motion";
+import Image from "next/image";
+import chartPhoto from "@/assets/photos/chart-together.jpg";
+import Spotlight from "./Spotlight";
 
 // Illustrative household on the engine's 1 to 10 scale. Each reading is an estimate
 // with a band; the ceiling is the lower of willingness and ability.
@@ -38,9 +41,25 @@ export default function Household() {
             When the pieces disagree, Galton flags it, so the conversation with your client starts in the right
             place.
           </p>
+          <motion.div
+            className="relative mt-10 aspect-[5/4] max-w-[30rem] overflow-hidden rounded-3xl"
+            initial={reduce ? false : { opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.35 }}
+            transition={{ duration: 0.9, ease }}
+          >
+            <Image
+              src={chartPhoto}
+              alt="A client and her advisor smile as they point to the same chart in her portfolio review."
+              fill
+              placeholder="blur"
+              sizes="(min-width: 768px) 480px, 100vw"
+              className="object-cover object-[50%_40%]"
+            />
+          </motion.div>
         </div>
 
-        <div className="rounded-2xl border border-rule bg-card p-5 sm:p-7">
+        <Spotlight className="rounded-2xl border border-rule bg-card p-5 sm:p-7">
           <p className="text-sm text-muted">Example household, 1 to 10 scale</p>
 
           <div className="relative mt-12 space-y-7">
@@ -111,7 +130,7 @@ export default function Household() {
               Ceiling set by ability. Revisit goals, timeline or savings rate before raising risk.
             </p>
           </motion.div>
-        </div>
+        </Spotlight>
       </div>
     </section>
   );
