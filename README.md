@@ -60,3 +60,4 @@ public/                     logo artwork, favicon, privacy policy PDF
   says so. Keep them that way unless a real, approved case study replaces them.
 - Fonts (Newsreader, IBM Plex Sans) are self-hosted through Fontsource, so the page makes
   no third-party font requests.
+# website
