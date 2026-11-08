@@ -8,6 +8,7 @@ import Nav from "@/components/Nav";
 import NumberCheck from "@/components/NumberCheck";
 import Security from "@/components/Security";
 import Steps from "@/components/Steps";
+import Story from "@/components/Story";
 
 export default function Home() {
   return (
@@ -15,6 +16,7 @@ export default function Home() {
       <Nav />
       <main>
         <Hero />
+        <Story />
         <Measures />
         <Steps />
         <NumberCheck />

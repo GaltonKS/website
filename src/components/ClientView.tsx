@@ -6,7 +6,9 @@
 // Every figure in the client text is one the engine returned (see NumberCheck).
 
 import { AnimatePresence, motion, useInView, useReducedMotion } from "framer-motion";
+import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
+import advisorPhoto from "@/assets/photos/advisor-tablet.jpg";
 import Spotlight from "./Spotlight";
 
 type View = "advisor" | "client";
@@ -74,20 +76,58 @@ export default function ClientView() {
   return (
     <section id="client-view" className="on-paper bg-card py-24 sm:py-32">
       <div className="mx-auto max-w-6xl px-5 sm:px-8">
-        <div className="grid items-end gap-8 md:grid-cols-[1.3fr_1fr]">
+        <div className="grid items-center gap-12 md:grid-cols-[1fr_1.1fr]">
           <div>
             <p className="text-sm font-medium uppercase tracking-[0.16em] text-gold-dark">In the meeting</p>
             <h2 className="mt-4 max-w-[36rem] font-serif text-4xl leading-[1.08] tracking-[-0.01em] text-navy sm:text-5xl">
               Your client won&apos;t ask for a correlation matrix. They&apos;ll ask, &ldquo;Are we okay?&rdquo;
             </h2>
+            <p className="mt-6 max-w-[30rem] text-lg leading-relaxed text-muted">
+              Galton AI turns the measures you rely on into words a client can follow, with the same checked
+              figures, so the conversation is about their life rather than the math.
+            </p>
           </div>
-          <p className="max-w-[28rem] text-lg leading-relaxed text-muted">
-            Galton AI turns the measures you rely on into words a client can follow, with the same checked figures,
-            so the conversation is about their life rather than the math.
-          </p>
+
+          <motion.div
+            className="relative"
+            initial={reduce ? false : { opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.35 }}
+            transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
+          >
+            <div className="relative aspect-[5/4] overflow-hidden rounded-3xl">
+              <Image
+                src={advisorPhoto}
+                alt="An advisor smiles as he walks a client through her portfolio on a tablet."
+                fill
+                placeholder="blur"
+                sizes="(min-width: 768px) 560px, 100vw"
+                className="object-cover object-[55%_40%]"
+              />
+            </div>
+            {/* a client-facing draft resting on the corner of the photo */}
+            <motion.div
+              className="absolute -bottom-6 left-4 right-4 rounded-2xl border border-rule bg-card/95 p-4 shadow-[0_24px_50px_-24px_rgba(31,27,22,0.45)] backdrop-blur sm:-left-8 sm:right-auto sm:w-[19rem]"
+              initial={reduce ? false : { opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.6 }}
+              transition={{ duration: 0.7, delay: 0.5, ease: [0.22, 1, 0.36, 1] }}
+            >
+              <p className="flex items-center justify-between text-xs text-muted">
+                <span>Draft for your client</span>
+                <span className="rounded-full bg-gold-soft px-2 py-0.5 font-medium text-gold-dark">
+                  Awaiting your approval
+                </span>
+              </p>
+              <p className="mt-2.5 font-serif text-[1.05rem] leading-snug text-ink">
+                &ldquo;About <Fig>68.4%</Fig> of your portfolio&apos;s ups and downs come from the market as a
+                whole&hellip;&rdquo;
+              </p>
+            </motion.div>
+          </motion.div>
         </div>
 
-        <div ref={ref} className="mt-14">
+        <div ref={ref} className="mt-20">
           <div
             role="group"
             aria-label="Show the findings for"
