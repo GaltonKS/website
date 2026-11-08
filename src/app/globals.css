@@ -1,26 +1,69 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+/* GaltonKS palette: logo navy and gold, with the product's paper and ink. */
+@theme {
+  --color-navy: #000815;
+  --color-navy-raised: #0a1526;
+  --color-navy-line: #1e2a3d;
+  --color-on-navy: #fdfaf3;
+  --color-on-navy-muted: #b9bfca;
+  --color-gold-bright: #e3ad33; /* on navy only */
+  --color-gold: #b8952f;
+  --color-gold-dark: #8a6d1f; /* gold text on paper */
+  --color-gold-soft: #f1e6c8;
+  --color-paper: #f5efe4;
+  --color-card: #fdfaf3;
+  --color-ink: #1f1b16;
+  --color-muted: #5c554b;
+  --color-rule: #e2d6be;
+  --color-good: #3f6b3a;
+  --color-good-on-navy: #8fc28a;
+  --color-bad: #9a3324;
+  --color-bad-on-navy: #ef8a76;
+
+  --font-serif: "Newsreader Variable", Georgia, "Iowan Old Style", serif;
+  --font-sans: "IBM Plex Sans", ui-sans-serif, system-ui, sans-serif;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 5rem;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  font-feature-settings: "tnum" 0;
+  -webkit-font-smoothing: antialiased;
+}
+
+.font-serif {
+  font-optical-sizing: auto;
+}
+
+.tabular {
+  font-variant-numeric: tabular-nums;
+}
+
+/* The wordmark, as in the product: letterspaced, KS in gold. */
+.wordmark {
+  font-weight: 500;
+  letter-spacing: 0.22em;
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-gold-bright);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+.on-paper :focus-visible {
+  outline-color: var(--color-gold-dark);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
 }
