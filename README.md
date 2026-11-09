@@ -60,4 +60,17 @@ public/                     logo artwork, favicon, privacy policy PDF
   says so. Keep them that way unless a real, approved case study replaces them.
 - Fonts (Newsreader, IBM Plex Sans) are self-hosted through Fontsource, so the page makes
   no third-party font requests.
-# website
+
+## Product screenshots
+
+`public/live/` holds real screens of the advisor-engine app (the `-app` frame and the `-card`
+pulled forward), shown by `LiveShot.tsx`. To retake them after the product changes:
+
+1. Run the product locally with dev auth (`uvicorn advisor_engine.api.main:app` and
+   `VITE_DEV_USER=alice npm run dev` in `web/`), starting from an empty `data/api/`.
+2. `python scripts/seed.py` loads the example Whitfield household and prints its ids.
+3. `python scripts/live_shots.py <client> <before> <after>` writes PNGs to `live-raw/`;
+   convert them to WebP in `public/live/`.
+
+The shots hide dev-only header badges and the workspace tab bar (its assistant tab still
+reads "Galton AI"). All figures come from synthetic returns and are illustrative.

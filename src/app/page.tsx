@@ -1,4 +1,3 @@
-import ClientView from "@/components/ClientView";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
 import Hero from "@/components/Hero";
@@ -7,8 +6,8 @@ import Measures from "@/components/Measures";
 import Nav from "@/components/Nav";
 import NumberCheck from "@/components/NumberCheck";
 import Security from "@/components/Security";
+import Showcase from "@/components/Showcase";
 import Steps from "@/components/Steps";
-import Story from "@/components/Story";
 
 export default function Home() {
   return (
@@ -16,11 +15,10 @@ export default function Home() {
       <Nav />
       <main>
         <Hero />
-        <Story />
         <Measures />
         <Steps />
         <NumberCheck />
-        <ClientView />
+        <Showcase />
         <Household />
         <Security />
         <Contact />

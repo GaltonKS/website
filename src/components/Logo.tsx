@@ -48,7 +48,7 @@ export function Logo({ markWidth = 38, onDark = false }: { markWidth?: number; o
       <LogoMark width={markWidth} onDark={onDark} />
       <span className="leading-none">
         <span className={`wordmark block text-[16px] ${onDark ? "text-on-navy" : "text-navy"}`}>
-          GALTON<span className={onDark ? "text-gold-bright" : "text-gold-dark"}>KS</span>
+          GALTON<span className={onDark ? "text-[#e3ad33]" : "text-[#8a6d1f]"}>KS</span>
         </span>
         <span
           className={`mt-1 block text-[8.5px] tracking-[0.32em] ${onDark ? "text-on-navy-muted" : "text-muted"}`}

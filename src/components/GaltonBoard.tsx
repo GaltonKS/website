@@ -4,8 +4,6 @@
 // binomial distribution. The dashed curve is the expected shape for the balls landed
 // so far, so the piles visibly settle onto it. Drawn on canvas, paused off-screen,
 // and replaced by a still, finished board when the viewer prefers reduced motion.
-// Clicking or tapping the board drops a handful of extra balls, so the visitor can
-// run the experiment themselves.
 
 import { useEffect, useRef } from "react";
 
@@ -71,7 +69,7 @@ export default function GaltonBoard({ className = "" }: { className?: string }) 
 
     // Position of a ball in flight: an arc from peg to peg, then a drop into its bin.
     function ballPos(b: Ball, now: number): [number, number] | null {
-      const t = Math.max(0, (now - b.t0) / ROW_MS);
+      const t = (now - b.t0) / ROW_MS;
       const r = Math.floor(t);
       const f = t - r;
       const lift = s * 0.42;
@@ -92,19 +90,19 @@ export default function GaltonBoard({ className = "" }: { className?: string }) 
 
     function drawStatic(landedAlpha: number) {
       ctx.clearRect(0, 0, W, H);
-      // pegs: navy-to-gold left to right, like the top plate of the logo
+      // pegs: cream, brightening left to right like the dotted plate of the logo
       for (let r = 0; r < ROWS; r++) {
         for (let c = 0; c <= r; c++) {
           const x = pegX(r, c);
           const u = (x - (cx - (ROWS / 2) * s)) / (ROWS * s);
-          ctx.fillStyle = `rgba(227,173,51,${0.28 + 0.6 * u})`;
+          ctx.fillStyle = `rgba(245,239,228,${0.22 + 0.5 * u})`;
           ctx.beginPath();
           ctx.arc(x, pegY(r), Math.max(1.4, s * 0.075), 0, Math.PI * 2);
           ctx.fill();
         }
       }
       // bin dividers and floor
-      ctx.strokeStyle = "rgba(185,191,202,0.16)";
+      ctx.strokeStyle = "rgba(245,239,228,0.12)";
       ctx.lineWidth = 1;
       for (let k = 0; k <= ROWS + 1; k++) {
         const x = binX(k) - s / 2;
@@ -113,14 +111,14 @@ export default function GaltonBoard({ className = "" }: { className?: string }) 
         ctx.lineTo(x, floorY);
         ctx.stroke();
       }
-      ctx.strokeStyle = "rgba(227,173,51,0.5)";
+      ctx.strokeStyle = "rgba(245,239,228,0.55)";
       ctx.beginPath();
       ctx.moveTo(binX(0) - s / 2, floorY + 1);
       ctx.lineTo(binX(ROWS) + s / 2, floorY + 1);
       ctx.stroke();
 
       // landed balls
-      ctx.fillStyle = `rgba(214,165,52,${0.9 * landedAlpha})`;
+      ctx.fillStyle = `rgba(245,239,228,${0.88 * landedAlpha})`;
       for (let k = 0; k <= ROWS; k++) {
         for (let i = 0; i < counts[k]; i++) {
           ctx.beginPath();
@@ -134,7 +132,7 @@ export default function GaltonBoard({ className = "" }: { className?: string }) 
       if (total > 12) {
         ctx.save();
         ctx.setLineDash([4, 5]);
-        ctx.strokeStyle = `rgba(253,250,243,${0.55 * landedAlpha})`;
+        ctx.strokeStyle = `rgba(255,255,255,${0.6 * landedAlpha})`;
         ctx.lineWidth = 1.25;
         ctx.beginPath();
         const steps = 120;
@@ -181,15 +179,11 @@ export default function GaltonBoard({ className = "" }: { className?: string }) 
       drawStatic(alpha);
 
       ctx.save();
-      ctx.fillStyle = "#f6c95a";
-      ctx.shadowColor = "rgba(246,201,90,0.85)";
+      ctx.fillStyle = "#ffffff";
+      ctx.shadowColor = "rgba(255,255,255,0.8)";
       ctx.shadowBlur = br * 3;
       const next: Ball[] = [];
       for (const b of balls) {
-        if (now < b.t0) {
-          next.push(b);
-          continue;
-        }
         const p = ballPos(b, now);
         if (!p) {
           counts[b.bin] = Math.min(counts[b.bin] + 1, maxStack);
@@ -220,21 +214,10 @@ export default function GaltonBoard({ className = "" }: { className?: string }) 
     const io = new IntersectionObserver(([e]) => (visible = e.isIntersecting));
     io.observe(canvas);
 
-    // a visitor's handful: a quick burst of balls from the top peg
-    function onDrop() {
-      if (phase === "fade") return;
-      const now = performance.now();
-      for (let i = 0; i < 14; i++) spawn(now + i * 28);
-    }
-
     if (reduce) drawReduced();
-    else {
-      raf = requestAnimationFrame(frame);
-      canvas.addEventListener("pointerdown", onDrop);
-    }
+    else raf = requestAnimationFrame(frame);
 
     return () => {
-      canvas.removeEventListener("pointerdown", onDrop);
       cancelAnimationFrame(raf);
       ro.disconnect();
       io.disconnect();
@@ -244,9 +227,9 @@ export default function GaltonBoard({ className = "" }: { className?: string }) 
   return (
     <canvas
       ref={canvasRef}
-      className={`${className} cursor-pointer touch-manipulation motion-reduce:cursor-default`}
+      className={className}
       role="img"
-      aria-label="A Galton board: gold balls bounce through rows of pegs and pile up into a bell-shaped distribution of outcomes."
+      aria-label="A Galton board: balls bounce through rows of pegs and pile up into a bell-shaped distribution of outcomes."
     />
   );
 }

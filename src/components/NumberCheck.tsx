@@ -1,12 +1,11 @@
 "use client";
 
-// A replay of Galton AI's number check: the reply is drafted, every figure is matched
+// A replay of Galton's number check: the reply is drafted, every figure is matched
 // against the engine's output, a figure that doesn't match gets the reply withheld,
 // and the corrected reply passes. Plays once when scrolled into view; Replay reruns it.
 
 import { AnimatePresence, motion, useInView, useReducedMotion } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
-import Spotlight from "./Spotlight";
 
 type Fig = { fig: string; src: string; fix?: string };
 type Seg = string | Fig;
@@ -118,47 +117,44 @@ export default function NumberCheck() {
       <div className="mx-auto grid max-w-6xl gap-14 px-5 sm:px-8 lg:grid-cols-[0.85fr_1.15fr] lg:gap-16">
         <div className="lg:pt-6">
           <h2 className="font-serif text-4xl leading-[1.08] tracking-[-0.01em] sm:text-5xl">
-            The AI never makes up a number.
+            Galton never makes up a number.
           </h2>
           <p className="mt-6 max-w-[30rem] text-lg leading-relaxed text-on-navy-muted">
-            Language models are good at explaining and bad at arithmetic. So Galton AI isn&apos;t allowed to do
-            arithmetic. It asks the engine, and code checks its reply before you see it.
+            Galton writes its explanations with an AI language model, but the model isn&apos;t allowed to do the
+            math. It asks the engine, and code checks every figure in the reply before you see it.
           </p>
           <ul className="mt-8 max-w-[30rem] space-y-4 text-on-navy-muted">
-            <li className="border-l-2 border-gold-bright/70 pl-4">
+            <li className="border-l-2 border-on-navy/60 pl-4">
               Every figure in a reply must match a value the engine returned, at the precision the reply uses.
             </li>
-            <li className="border-l-2 border-gold-bright/70 pl-4">
-              If one doesn&apos;t, the AI gets one chance to correct it. If it still fails, the reply is withheld and
+            <li className="border-l-2 border-on-navy/60 pl-4">
+              If one doesn&apos;t, Galton gets one chance to correct it. If it still fails, the reply is withheld and
               the unmatched figures are listed.
             </li>
-            <li className="border-l-2 border-gold-bright/70 pl-4">
-              Nothing reaches you, or your client, on trust.
-            </li>
+            <li className="border-l-2 border-on-navy/60 pl-4">Nothing reaches you, or your client, on trust.</li>
           </ul>
         </div>
 
-        <Spotlight tone="navy" className="rounded-2xl border border-navy-line bg-navy-raised p-4 sm:p-6">
-          <div ref={ref}>
+        <div ref={ref} className="on-paper rounded-2xl bg-paper p-4 text-ink sm:p-6">
           <div className="flex items-center justify-between gap-3">
-            <p className="text-sm text-on-navy-muted">Galton AI, Whitfield household</p>
+            <p className="text-sm text-muted">Galton, Whitfield household</p>
             <button
               type="button"
               onClick={() => setRun((r) => r + 1)}
               disabled={stage !== "passed" || !!reduce}
-              className="rounded-full border border-navy-line px-3 py-1 text-sm text-on-navy-muted transition-colors enabled:hover:border-on-navy-muted enabled:hover:text-on-navy disabled:opacity-40"
+              className="rounded-full border border-ink/20 px-3 py-1 text-sm text-muted transition-colors enabled:hover:border-ink enabled:hover:text-ink disabled:opacity-40"
             >
               Replay
             </button>
           </div>
 
           <div className="mt-5 flex justify-end">
-            <p className="max-w-[85%] rounded-2xl rounded-br-md bg-[#17233a] px-4 py-2.5 text-[15px]">
+            <p className="max-w-[85%] rounded-2xl rounded-br-md bg-navy px-4 py-2.5 text-[15px] text-on-navy">
               How concentrated is this portfolio?
             </p>
           </div>
 
-          <div className="mt-4 min-h-[9.5rem] rounded-2xl rounded-bl-md border border-navy-line px-4 py-3.5 text-[15px] leading-[1.9] sm:text-base">
+          <div className="mt-4 min-h-[9.5rem] rounded-2xl rounded-bl-md border border-rule bg-card px-4 py-3.5 text-[15px] leading-[1.9] sm:text-base">
             {LAYOUT.map(({ seg, start, fig }, i) => {
               const left = chars - start;
               if (left <= 0) return null;
@@ -171,12 +167,12 @@ export default function NumberCheck() {
                   <motion.span
                     className={`tabular rounded px-1 py-0.5 font-medium transition-colors duration-300 ${
                       st === "ok"
-                        ? "bg-good-on-navy/15 text-good-on-navy"
+                        ? "bg-good/10 text-good"
                         : st === "bad"
-                          ? "bg-bad-on-navy/15 text-bad-on-navy line-through decoration-2"
+                          ? "bg-bad/10 text-bad line-through decoration-2"
                           : st === "checking"
-                            ? "bg-gold-bright/20 text-gold-bright ring-1 ring-gold-bright"
-                            : "text-on-navy underline decoration-on-navy-muted/50 decoration-dotted underline-offset-4"
+                            ? "bg-navy text-on-navy"
+                            : "text-ink underline decoration-ink/40 decoration-dotted underline-offset-4"
                     }`}
                     key={text}
                     initial={seg.fix && fixed ? { opacity: 0, y: 6 } : false}
@@ -188,7 +184,7 @@ export default function NumberCheck() {
               );
             })}
             {stage === "typing" && (
-              <span className="ml-0.5 inline-block h-4 w-[2px] translate-y-0.5 animate-pulse bg-gold-bright" />
+              <span className="ml-0.5 inline-block h-4 w-[2px] translate-y-0.5 animate-pulse bg-navy" />
             )}
           </div>
 
@@ -200,9 +196,9 @@ export default function NumberCheck() {
                   initial={{ opacity: 0, y: 6 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0 }}
-                  className="rounded-xl border border-bad-on-navy/40 bg-bad-on-navy/10 px-4 py-2.5 text-sm text-bad-on-navy"
+                  className="rounded-xl border border-bad/30 bg-bad/[0.06] px-4 py-2.5 text-sm text-bad"
                 >
-                  Reply withheld. 35% isn&apos;t in the engine output. Asking Galton AI to correct it.
+                  Reply withheld. 35% isn&apos;t in the engine output. Asking Galton to correct it.
                 </motion.p>
               )}
               {stage === "passed" && (
@@ -211,7 +207,7 @@ export default function NumberCheck() {
                   initial={{ opacity: 0, y: 6 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0 }}
-                  className="rounded-xl border border-good-on-navy/40 bg-good-on-navy/10 px-4 py-2.5 text-sm text-good-on-navy"
+                  className="rounded-xl border border-good/30 bg-good/[0.06] px-4 py-2.5 text-sm text-good"
                 >
                   All 5 figures match the engine output. Reply shown and logged.
                 </motion.p>
@@ -222,7 +218,7 @@ export default function NumberCheck() {
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   exit={{ opacity: 0 }}
-                  className="px-1 py-2.5 text-sm text-on-navy-muted"
+                  className="px-1 py-2.5 text-sm text-muted"
                 >
                   Checking each figure against the engine output…
                 </motion.p>
@@ -230,14 +226,14 @@ export default function NumberCheck() {
             </AnimatePresence>
           </div>
 
-          <div className="mt-4 rounded-xl bg-navy p-4">
+          <div className="mt-4 rounded-xl bg-navy p-4 text-on-navy">
             <p className="text-sm text-on-navy-muted">Engine output</p>
             <dl className="mt-3 divide-y divide-navy-line">
               {ENGINE.map((row) => (
                 <div
                   key={row.key}
-                  className={`flex items-center justify-between gap-4 py-2 text-sm transition-colors duration-300 ${
-                    active === row.key ? "text-gold-bright" : "text-on-navy-muted"
+                  className={`-mx-2 flex items-center justify-between gap-4 rounded px-2 py-2 text-sm transition-colors duration-300 ${
+                    active === row.key ? "bg-on-navy text-navy" : "text-on-navy-muted"
                   }`}
                 >
                   <dt>{row.label}</dt>
@@ -246,8 +242,7 @@ export default function NumberCheck() {
               ))}
             </dl>
           </div>
-          </div>
-        </Spotlight>
+        </div>
       </div>
     </section>
   );

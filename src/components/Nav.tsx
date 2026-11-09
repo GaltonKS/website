@@ -1,13 +1,11 @@
 "use client";
 
-import { motion, useReducedMotion, useScroll, useSpring } from "framer-motion";
 import { useEffect, useState } from "react";
 import { Logo } from "./Logo";
 
 const LINKS = [
   { href: "#how-it-works", label: "How it works" },
   { href: "#number-check", label: "Number check" },
-  { href: "#client-view", label: "For clients" },
   { href: "#household", label: "Household profile" },
   { href: "#security", label: "Security" },
 ];
@@ -15,9 +13,6 @@ const LINKS = [
 export default function Nav() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
-  const reduce = useReducedMotion();
-  const { scrollYProgress } = useScroll();
-  const progress = useSpring(scrollYProgress, { stiffness: 120, damping: 30, restDelta: 0.001 });
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
@@ -29,15 +24,9 @@ export default function Nav() {
   return (
     <header
       className={`fixed inset-x-0 top-0 z-50 transition-[background-color,border-color] duration-300 ${
-        scrolled || open ? "border-b border-gold/60 bg-navy/95 backdrop-blur" : "border-b border-transparent"
+        scrolled || open ? "border-b border-navy-line bg-navy" : "border-b border-transparent"
       }`}
     >
-      {/* reading progress, a thin gold line along the bottom of the bar */}
-      <motion.div
-        aria-hidden="true"
-        className="absolute inset-x-0 -bottom-px h-[2px] origin-left bg-gold-bright"
-        style={{ scaleX: reduce ? scrollYProgress : progress, opacity: scrolled ? 1 : 0 }}
-      />
       <nav className="mx-auto flex h-16 max-w-6xl items-center justify-between px-5 sm:px-8" aria-label="Main">
         <a href="#top" aria-label="GaltonKS home">
           <Logo onDark markWidth={34} />
@@ -51,7 +40,7 @@ export default function Nav() {
           ))}
           <a
             href="#contact"
-            className="rounded-full bg-gold-bright px-4 py-2 text-sm font-medium text-navy transition-colors hover:bg-[#f0c04f]"
+            className="rounded-full bg-on-navy px-4 py-2 text-sm font-medium text-navy transition-colors hover:bg-white"
           >
             Book a meeting
           </a>
@@ -90,7 +79,7 @@ export default function Nav() {
           <a
             href="#contact"
             onClick={() => setOpen(false)}
-            className="mt-3 block rounded-full bg-gold-bright px-4 py-3 text-center font-medium text-navy"
+            className="mt-3 block rounded-full bg-on-navy px-4 py-3 text-center font-medium text-navy"
           >
             Book a meeting
           </a>

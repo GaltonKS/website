@@ -1,9 +1,7 @@
 "use client";
 
 import { AnimatePresence, motion } from "framer-motion";
-import Image from "next/image";
 import { useState, type FormEvent } from "react";
-import kitchenPhoto from "@/assets/photos/kitchen-review.jpg";
 import { AUM, ROLES, submitContact, validateContact, type ContactRequest } from "@/lib/contact";
 
 const EMPTY: ContactRequest = { name: "", email: "", firm: "", role: "", aum: "", message: "", website: "" };
@@ -39,16 +37,11 @@ export default function Contact() {
   }
 
   const input =
-    "mt-1.5 block w-full rounded-lg border bg-white px-3.5 py-2.5 text-ink placeholder:text-muted/60 focus:border-gold-dark focus:outline-none focus:ring-2 focus:ring-gold/30";
+    "mt-1.5 block w-full rounded-lg border bg-white px-3.5 py-2.5 text-ink placeholder:text-muted/60 focus:border-navy focus:outline-none focus:ring-2 focus:ring-navy/20";
   const border = (k: keyof ContactRequest) => (errors[k] ? "border-bad" : "border-rule");
 
   return (
     <section id="contact" className="relative overflow-hidden bg-navy py-24 text-on-navy sm:py-32">
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute -left-48 bottom-0 h-[520px] w-[520px] rounded-full opacity-30 blur-3xl"
-        style={{ background: "radial-gradient(circle, rgba(227,173,51,0.3), transparent 65%)" }}
-      />
       <div className="relative mx-auto grid max-w-6xl gap-14 px-5 sm:px-8 lg:grid-cols-[0.9fr_1.1fr]">
         <div>
           <h2 className="font-serif text-4xl leading-[1.08] tracking-[-0.01em] sm:text-5xl">
@@ -69,32 +62,9 @@ export default function Contact() {
               <Tick /> Your questions about data, security and pricing
             </li>
           </ul>
-
-          <motion.figure
-            className="relative mt-10 max-w-[30rem]"
-            initial={{ opacity: 0, y: 24 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.4 }}
-            transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
-          >
-            <div className="relative aspect-[3/2] overflow-hidden rounded-2xl ring-1 ring-white/10">
-              <Image
-                src={kitchenPhoto}
-                alt="An advisor and a client review printed charts together at a kitchen island."
-                fill
-                placeholder="blur"
-                sizes="(min-width: 1024px) 480px, 100vw"
-                className="object-cover object-[60%_35%]"
-              />
-              <div aria-hidden="true" className="absolute inset-0 bg-gradient-to-t from-navy/50 via-transparent" />
-            </div>
-            <figcaption className="absolute -bottom-4 left-4 rounded-full border border-white/12 bg-navy/80 px-4 py-2 text-sm text-on-navy backdrop-blur">
-              30 minutes, on a portfolio you choose
-            </figcaption>
-          </motion.figure>
         </div>
 
-        <div className="on-paper rounded-2xl bg-card p-6 text-ink shadow-[0_30px_80px_-30px_rgba(0,0,0,0.6)] sm:p-8">
+        <div className="on-paper rounded-2xl bg-paper p-6 text-ink sm:p-8">
           <AnimatePresence mode="wait">
             {state === "sent" ? (
               <motion.div
@@ -115,7 +85,7 @@ export default function Contact() {
                 </p>
                 <button
                   type="button"
-                  className="mt-6 text-sm font-medium text-gold-dark underline underline-offset-4"
+                  className="mt-6 text-sm font-medium text-navy underline underline-offset-4"
                   onClick={() => {
                     setForm(EMPTY);
                     setState("idle");
@@ -209,7 +179,7 @@ export default function Contact() {
                 <button
                   type="submit"
                   disabled={state === "sending"}
-                  className="mt-6 w-full rounded-full bg-navy px-6 py-3.5 font-medium text-on-navy transition-colors hover:bg-[#13213a] disabled:opacity-70"
+                  className="mt-6 w-full rounded-full bg-navy px-6 py-3.5 font-medium text-on-navy transition-colors hover:bg-black disabled:opacity-70"
                 >
                   {state === "sending" ? "Sending request…" : "Request a meeting"}
                 </button>
@@ -260,7 +230,7 @@ function Field({
 
 function Tick() {
   return (
-    <svg width="18" height="18" viewBox="0 0 18 18" className="mt-1 shrink-0 text-gold-bright" aria-hidden="true">
+    <svg width="18" height="18" viewBox="0 0 18 18" className="mt-1 shrink-0 text-on-navy" aria-hidden="true">
       <path d="M4 9.5l3 3 7-7.5" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
     </svg>
   );

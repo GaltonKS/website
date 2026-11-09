@@ -1,25 +1,19 @@
 @import "tailwindcss";
 
-/* GaltonKS palette: logo navy and gold, with the product's paper and ink. */
+/* GaltonKS palette: one navy, cream, white and black. Gold lives only in the logo.
+   Never put a second navy on navy: panels on navy are cream or white. */
 @theme {
   --color-navy: #000815;
-  --color-navy-raised: #0a1526;
-  --color-navy-line: #1e2a3d;
-  --color-on-navy: #fdfaf3;
+  --color-navy-line: rgba(245, 239, 228, 0.16); /* cream hairline on navy */
+  --color-on-navy: #f5efe4;
   --color-on-navy-muted: #b9bfca;
-  --color-gold-bright: #e3ad33; /* on navy only */
-  --color-gold: #b8952f;
-  --color-gold-dark: #8a6d1f; /* gold text on paper */
-  --color-gold-soft: #f1e6c8;
-  --color-paper: #f5efe4;
-  --color-card: #fdfaf3;
-  --color-ink: #1f1b16;
-  --color-muted: #5c554b;
-  --color-rule: #e2d6be;
-  --color-good: #3f6b3a;
-  --color-good-on-navy: #8fc28a;
+  --color-paper: #f5efe4; /* cream */
+  --color-card: #ffffff; /* white */
+  --color-ink: #000000; /* black */
+  --color-muted: #55524c;
+  --color-rule: #e2d9c7;
+  --color-good: #2f6b34;
   --color-bad: #9a3324;
-  --color-bad-on-navy: #ef8a76;
 
   --font-serif: "Newsreader Variable", Georgia, "Iowan Old Style", serif;
   --font-sans: "IBM Plex Sans", ui-sans-serif, system-ui, sans-serif;
@@ -53,97 +47,13 @@ body {
 }
 
 :focus-visible {
-  outline: 2px solid var(--color-gold-bright);
+  outline: 2px solid var(--color-on-navy);
   outline-offset: 3px;
   border-radius: 4px;
 }
 
 .on-paper :focus-visible {
-  outline-color: var(--color-gold-dark);
-}
-
-/* Cursor light for <Spotlight> cards. */
-.spotlight {
-  --sx: 50%;
-  --sy: 50%;
-  --so: 0;
-  isolation: isolate;
-}
-.spotlight::before,
-.spotlight::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  pointer-events: none;
-  opacity: var(--so);
-  transition: opacity 400ms ease;
-}
-/* the light on the surface */
-.spotlight::before {
-  z-index: -1;
-  background: radial-gradient(420px circle at var(--sx) var(--sy), var(--spot-fill), transparent 60%);
-}
-/* the warmed border */
-.spotlight::after {
-  padding: 1px;
-  background: radial-gradient(260px circle at var(--sx) var(--sy), var(--spot-edge), transparent 70%);
-  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
-  -webkit-mask-composite: xor;
-  mask-composite: exclude;
-}
-.spotlight-paper {
-  --spot-fill: rgba(184, 149, 47, 0.1);
-  --spot-edge: rgba(184, 149, 47, 0.75);
-}
-.spotlight-navy {
-  --spot-fill: rgba(227, 173, 51, 0.09);
-  --spot-edge: rgba(227, 173, 51, 0.7);
-}
-
-/* Range input in the brand's colours. */
-.range {
-  -webkit-appearance: none;
-  appearance: none;
-  height: 28px;
-  background: transparent;
-  cursor: pointer;
-}
-.range::-webkit-slider-runnable-track {
-  height: 4px;
-  border-radius: 999px;
-  background: linear-gradient(90deg, var(--color-gold) var(--fill, 0%), var(--color-rule) var(--fill, 0%));
-}
-.range::-moz-range-track {
-  height: 4px;
-  border-radius: 999px;
-  background: var(--color-rule);
-}
-.range::-moz-range-progress {
-  height: 4px;
-  border-radius: 999px;
-  background: var(--color-gold);
-}
-.range::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  margin-top: -9px;
-  height: 22px;
-  width: 22px;
-  border-radius: 999px;
-  background: var(--color-card);
-  border: 2px solid var(--color-gold-dark);
-  box-shadow: 0 2px 8px rgba(31, 27, 22, 0.18);
-  transition: transform 150ms ease;
-}
-.range::-moz-range-thumb {
-  height: 18px;
-  width: 18px;
-  border-radius: 999px;
-  background: var(--color-card);
-  border: 2px solid var(--color-gold-dark);
-}
-.range:active::-webkit-slider-thumb {
-  transform: scale(1.15);
+  outline-color: var(--color-navy);
 }
 
 @media (prefers-reduced-motion: reduce) {
