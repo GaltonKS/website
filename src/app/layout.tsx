@@ -7,9 +7,9 @@ import "@fontsource/ibm-plex-sans/600.css";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Galton AI by GaltonKS — portfolio risk analysis for advisors",
+  title: "GaltonKS: portfolio risk analysis for advisors",
   description:
-    "Galton AI measures how concentrated a client's portfolio really is, builds a household risk profile, and explains both in plain language. The engine computes every figure; every answer is checked before you see it.",
+    "Galton measures how concentrated a client's portfolio really is, builds a household risk profile, and explains both in plain language. The engine computes every figure; every answer is checked before you see it.",
   icons: { apple: "/apple-touch-icon.png" },
 };
 

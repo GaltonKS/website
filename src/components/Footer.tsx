@@ -22,7 +22,7 @@ export default function Footer() {
       </div>
       <div className="mx-auto max-w-6xl px-5 pb-10 text-xs leading-relaxed text-on-navy-muted/70 sm:px-8">
         <p>
-          © 2026 GaltonKS. Galton AI is decision support for licensed financial professionals
+          © 2026 GaltonKS. Decision support for licensed financial professionals
           and does not provide investment advice to the public. Portfolio and household figures shown on this page
           are illustrative.
         </p>
