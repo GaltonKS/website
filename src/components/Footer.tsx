@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { LINKEDIN_URL, LinkedInIcon } from "./LinkedInIcon";
 import { Logo } from "./Logo";
 
 export default function Footer() {
@@ -22,6 +23,10 @@ export default function Footer() {
           <Link href="/" className="hover:text-on-navy">
             Forecast Engine
           </Link>
+          <a href={LINKEDIN_URL} target="_blank" rel="noopener noreferrer" className="hover:text-on-navy"
+             aria-label="GaltonKS on LinkedIn" title="GaltonKS on LinkedIn">
+            <LinkedInIcon />
+          </a>
         </nav>
       </div>
       <div className="mx-auto max-w-6xl px-5 pb-10 text-xs leading-relaxed text-on-navy-muted/70 sm:px-8">
