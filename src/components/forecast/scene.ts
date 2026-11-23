@@ -1,4 +1,3 @@
-import { submitContact, validateContact, type ContactRequest } from "@/lib/contact";
 import { DEC, FIT, HIST } from "./data";
 
 /* Draws and animates the Forecast Engine page inside `root` and wires up its controls.
@@ -573,57 +572,6 @@ export function mountForecast(root: HTMLElement): () => void {
     el("rect", { class: "core", x: cx - 130, y: cy - 58, width: 260, height: 116, rx: 20 }, f);
     el("text", { x: cx, y: cy - 6, "text-anchor": "middle", "font-size": 22, "font-weight": 750, style: "fill:#000815" }, f).textContent = "Forecast Engine";
     el("text", { x: cx, y: cy + 20, "text-anchor": "middle", "font-size": 15, style: "fill:#1B2433" }, f).textContent = "Fit drivers, project, explain";
-  }
-
-  /* ---------- walkthrough request: posts to the site's /api/contact ---------- */
-  {
-    const form = q<HTMLFormElement>("req"),
-      err = q("err"),
-      done = q("done"),
-      btn = q<HTMLButtonElement>("req-submit");
-    on<SubmitEvent>(form, "submit", async (e) => {
-      e.preventDefault();
-      const fd = new FormData(form);
-      const val = (k: string) => String(fd.get(k) ?? "").trim();
-      const message = [
-        "Sent from the Forecast Engine page.",
-        val("note") && `Wants to forecast: ${val("note")}`,
-        val("times") && `Times that suit: ${val("times")}`,
-      ]
-        .filter(Boolean)
-        .join("\n");
-      const req: ContactRequest = {
-        name: val("name"),
-        email: val("email"),
-        firm: val("firm"),
-        role: "",
-        aum: "",
-        message,
-        website: String(fd.get("website") ?? ""),
-      };
-      const found = validateContact(req);
-      const first = Object.keys(found)[0] as keyof ContactRequest | undefined;
-      if (first) {
-        err.textContent = found[first] ?? "";
-        form.querySelector<HTMLElement>(`[name="${first === "message" ? "note" : first}"]`)?.focus();
-        return;
-      }
-      err.textContent = "";
-      btn.disabled = true;
-      btn.textContent = "Sending request…";
-      try {
-        await submitContact(req);
-        q("done-msg").textContent = `Thanks, ${req.name.split(" ")[0]}. We'll email ${req.email} to find a time that works.`;
-        form.style.display = "none";
-        done.style.display = "block";
-        done.focus();
-      } catch (ex) {
-        err.textContent = ex instanceof Error ? ex.message : "The request didn't go through.";
-      } finally {
-        btn.disabled = false;
-        btn.textContent = "Request a walkthrough";
-      }
-    });
   }
 
   return () => {

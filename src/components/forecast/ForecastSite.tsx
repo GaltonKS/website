@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useEffect, useRef } from "react";
 import { mountForecast } from "./scene";
 import { LINKEDIN_URL, LinkedInIcon } from "../LinkedInIcon";
+import AcuityScheduler, { ACUITY_URL } from "../AcuityScheduler";
 
 /** The Forecast Engine page. The markup is static; mountForecast() draws the charts,
  *  runs the animations and wires up the controls and booking form. */
@@ -285,7 +286,7 @@ export default function ForecastSite() {
               <div>
                 <h2>See it run on your numbers.</h2>
                 <p>
-                  In 30 minutes we&apos;ll load a sample of your financials, walk through each driver, and show how
+                  Pick a time. In 30 minutes we&apos;ll load a sample of your financials, walk through each driver, and show how
                   scenarios would work for you or your clients.
                 </p>
                 <ul>
@@ -295,51 +296,16 @@ export default function ForecastSite() {
                 </ul>
               </div>
               <div>
-                <form className="req" id="req" noValidate>
-                  <div className="row">
-                    <label>
-                      Name
-                      <input name="name" autoComplete="name" required />
-                    </label>
-                    <label>
-                      Work email
-                      <input name="email" type="email" autoComplete="email" required />
-                    </label>
-                  </div>
-                  <label>
-                    Company or firm
-                    <input name="firm" autoComplete="organization" required />
-                  </label>
-                  <label>
-                    What would you like to forecast?
-                    <textarea name="note" placeholder="For example: monthly cash flow for our advisory clients"></textarea>
-                  </label>
-                  <label>
-                    Times that suit you
-                    <input name="times" placeholder="For example: Tue or Thu afternoons, ET" />
-                  </label>
-                  {/* honeypot, hidden from people and screen readers */}
-                  <div style={{ position: "absolute", left: -9999 }} aria-hidden="true">
-                    <label>
-                      Website
-                      <input name="website" tabIndex={-1} autoComplete="off" />
-                    </label>
-                  </div>
-                  <p className="err" id="err" role="alert"></p>
-                  <div>
-                    <button className="btn gold" type="submit" id="req-submit">
-                      Request a walkthrough
-                    </button>
-                  </div>
-                  <p className="privacy">
-                    We use these details only to arrange the walkthrough. See our{" "}
-                    <a href="/GaltonKS-Privacy-Policy.pdf">privacy policy</a>.
-                  </p>
-                </form>
-                <div className="done" id="done" tabIndex={-1} role="status">
-                  <h3>Request sent</h3>
-                  <p id="done-msg">We&apos;ll email you to find a time that works.</p>
+                <div className="sched">
+                  <AcuityScheduler />
                 </div>
+                <p className="privacy">
+                  Calendar not loading?{" "}
+                  <a href={ACUITY_URL} target="_blank" rel="noopener noreferrer">
+                    Open the booking page
+                  </a>
+                  . See our <a href="/GaltonKS-Privacy-Policy.pdf">privacy policy</a>.
+                </p>
               </div>
             </div>
           </section>
