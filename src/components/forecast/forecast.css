@@ -179,7 +179,7 @@ svg#flow{width:100%;height:auto;display:block}
 
 /* book */
 #book{padding:130px 0 0}
-.book{background:var(--night);color:var(--paper);border-radius:28px;padding:72px 60px;display:grid;grid-template-columns:1fr 1fr;gap:60px;border:2px solid var(--gold)}
+.book{background:var(--night);color:var(--paper);border-radius:28px;padding:72px 60px;display:grid;grid-template-columns:.85fr 1.15fr;gap:60px;border:2px solid var(--gold)}
 .book h2{font-size:clamp(40px,5.4vw,74px);line-height:.96;letter-spacing:-.035em;margin:0 0 22px;font-weight:750}
 .book p{color:#B9BFCA;font-size:19px;max-width:38ch;margin:0 0 16px}
 .book ul{padding:0;margin:26px 0 0;list-style:none;color:#E2D9C7;font-size:17px}
@@ -196,7 +196,8 @@ form.req .err{color:var(--marker);font-size:15px;min-height:1.2em;margin:0}
 .done h3{margin:0 0 8px;font-size:24px}
 .done p{color:var(--muted);margin:0 0 12px;font-size:17px}
 .done .addr{font-weight:650;color:var(--ink)}
-.privacy{font-size:13px;color:#B9BFCA;margin:0}
+.sched{background:var(--paper);border-radius:14px;padding:8px;overflow:hidden}
+.privacy{font-size:13px;color:#B9BFCA;margin:12px 0 0}
 .privacy a{text-decoration:underline;text-underline-offset:2px}
 
 footer{margin-top:90px;border-top:1px solid var(--rule)}
