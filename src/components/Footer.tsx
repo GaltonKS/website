@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { Logo } from "./Logo";
 
 export default function Footer() {
@@ -18,6 +19,9 @@ export default function Footer() {
           <a href="#contact" className="hover:text-on-navy">
             Book a meeting
           </a>
+          <Link href="/" className="hover:text-on-navy">
+            Forecast Engine
+          </Link>
         </nav>
       </div>
       <div className="mx-auto max-w-6xl px-5 pb-10 text-xs leading-relaxed text-on-navy-muted/70 sm:px-8">

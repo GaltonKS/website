@@ -1,7 +1,10 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  // The Forecast Engine page moved from /forecast to the home page.
+  async redirects() {
+    return [{ source: "/forecast", destination: "/", permanent: false }];
+  },
   cacheComponents: true,
   partialPrefetching: true,
   turbopack: {
