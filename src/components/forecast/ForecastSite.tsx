@@ -371,7 +371,7 @@ export default function ForecastSite() {
             <h4>Company</h4>
             <ul>
               <li>
-                <Link href="/">GaltonKS home</Link>
+                <Link href="/advisors">GaltonKS for advisors</Link>
               </li>
               <li>
                 <a href="#trust">Security</a>

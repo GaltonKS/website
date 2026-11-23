@@ -1,8 +1,12 @@
 # GaltonKS website
 
-Marketing site for Galton AI (the `advisor-engine` product). One page: a live Galton
-board hero, the number-check replay, the household risk profile, security, and a
-contact form for booking meetings.
+Marketing site for GaltonKS. Two pages:
+
+- `/` (home): the **Forecast Engine** (the `forecast-engine` product). `/forecast`, its
+  old address, redirects here.
+- `/advisors`: Galton AI (the `advisor-engine` product): a live Galton board hero, the
+  number-check replay, the household risk profile, security, and a contact form for
+  booking meetings.
 
 Next.js 16 (App Router) · Tailwind CSS 4 · Framer Motion · TypeScript
 
@@ -40,7 +44,8 @@ runs Node works too (`npm run build && npm start`).
 ## Where things are
 
 ```
-src/app/page.tsx            section order
+src/app/page.tsx            home page: the Forecast Engine (components/forecast/)
+src/app/advisors/page.tsx   advisor page: section order
 src/app/globals.css         brand palette and fonts (from advisor-engine/web)
 src/components/
   GaltonBoard.tsx           canvas animation in the hero
