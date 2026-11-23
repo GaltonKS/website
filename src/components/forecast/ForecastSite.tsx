@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useEffect, useRef } from "react";
 import { mountForecast } from "./scene";
+import { LINKEDIN_URL, LinkedInIcon } from "../LinkedInIcon";
 
 /** The Forecast Engine page. The markup is static; mountForecast() draws the charts,
  *  runs the animations and wires up the controls and booking form. */
@@ -352,6 +353,10 @@ export default function ForecastSite() {
             <p style={{ margin: 0, maxWidth: "34ch" }}>
               Driver-based forecasts with the math shown. Sample data on this page is synthetic.
             </p>
+            <a className="social" href={LINKEDIN_URL} target="_blank" rel="noopener noreferrer"
+               aria-label="GaltonKS on LinkedIn" title="GaltonKS on LinkedIn">
+              <LinkedInIcon />
+            </a>
           </div>
           <div>
             <h4>Product</h4>
